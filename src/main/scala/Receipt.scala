@@ -2,7 +2,7 @@ import main.receipt
 import scala.collection.mutable.Buffer
 class Receipt()  {
   var tonnikala =  3
-  var tomaatti  =  2
+  var tomaatti  =  0
   var maito     =  3
   var leipä     =  3
   var kanamuna  =  3
