@@ -1,10 +1,6 @@
 class Raakaaineet (määrä: Int){
 
 
-
-
-
-
   var tonnikala=  3
   var tomaatti =  4
   var maito    =  3
