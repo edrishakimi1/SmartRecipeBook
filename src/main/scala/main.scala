@@ -1,4 +1,5 @@
 //import main.edris
+import scala.collection.mutable.Buffer
 
 import java.awt.Image.SCALE_SMOOTH
 import java.net.URL
@@ -18,6 +19,8 @@ object main extends SimpleSwingApplication {
     "omlette" -> new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg"),
     "puuro" -> new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg"),
     "fetapasta" -> new URL("https://www.maaseuduntulevaisuus.fi/image/policy:1.1321788:1613752789/image.jpg?f=default&q=0.9&$p$f$q=fda4bc7&w=806&$w=17a9782"))
+  //val makingfood = Map("pizza"-> Receipt.pizzacalcuate(1,1,1))
+
 
   val ruokapaneelit = for (
     (nimi, kuva) <- Reseptit
@@ -32,17 +35,12 @@ object main extends SimpleSwingApplication {
     reactions += {
       case painallus: ButtonClicked => {
 
-        if(nappi.name == "pizza"){
-           Receipt.kuvaukset("pizza")
-          kuvaus.visible  = !kuvaus.visible
-        nappulaikkuna.pack
-      Receipt.makefood("pizza")
-        }
-         else
         Receipt.kuvaukset(nimi)
         kuvaus.visible  = !kuvaus.visible
         nappulaikkuna.pack
-        Receipt.makefood(nimi)
+        //Receipt.makefood(nimi)
+    Receipt.calcuate(nimi,1,1,1,1)
+
       //Receipt.makefood(nimi)
         //Receipt.ca
 

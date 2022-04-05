@@ -2,9 +2,9 @@
 import scala.collection.mutable.Buffer
 object Receipt {
 
-  /*
+
   var tonnikala =  3
-  var tomaatti  =  0
+  var tomaatti  =  3
   var maito     =  3
   var leipä     =  3
   var kanamuna  =  3
@@ -12,7 +12,7 @@ object Receipt {
   var juusto    =  5
   var pesto     =  5
   var olioljy   =  4
-*/
+
    val pizza =
     "<html>Liuota hiiva kädenlämpöiseen veteen. Lisää suola, jauhot ja öljy. ..\n" +
     "<br/>.Kauli kohonnut taikina ohueksi levyksi. Mikäli taikina on todella löysää, käytä reilusti jauhoja apuna. ...Täytä pizza haluamillasi täytteillä ja\n"+
@@ -41,32 +41,62 @@ object Receipt {
    val aineet      =     Map ("tonnikala"-> 3, "tomaatti" -> 2, "maito" -> 3,"jauho"->0,"kanamuna" -> 3 , "juusto" -> 5)
    val pizzaresepti =    Map ("juusto" -> 1, "jauho"-> 2)
   val omeletteresepti =  Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
-   val reseptit = Vector(pizzaresepti)
+  val puuroo = Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
+  val pastaa = Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
+  val reseptit = Vector(pizzaresepti,omeletteresepti,puuroo,pastaa)
   val Resepti = reseptit(0)
 
   def makefood (ruoka: String)={
-
+if (ruoka=="pizza"){
     for {
-      (aine, maara) <- Resepti
-    } if (aineet(aine) > maara)
+      (aine, maara) <- pizzaresepti
+    } {
+      if (aineet(aine) >= maara) {
       println("raaka-aine määrät ovat sopivan määrä")
-    else
+    }
+      else
       println("raaka-aineet ovat loppuneet")
 
+}
+  }
+else
+  println("None")
   }
 
-  /*
-   def calcuate ( tomat: Int, taik: Int, juus : Int)={
+
+
+
+
+
+
+   def calcuate ( ruoka: String, tomat: Int, taik: Int, juus : Int, kanamun: Int)={
+     if(ruoka=="pizza"){
      if ( tomaatti > tomat && taikina > taik && juusto > juus) {
        tomaatti =  tomaatti -tomat
-
      taikina = taikina- taik
        juusto = juusto-juus
+       println("OK")
      }
 
-     else "raaka-aineet ovat loppuneet"
+     else println("raaka-aineet ovat loppuneet se tarkoittaa, että et voi käyttää tätä reseptiä")
+     }
+
+       else if (ruoka=="omlette"){
+       if ( tomaatti > tomat && kanamuna> kanamun) {
+       tomaatti =  tomaatti -tomat
+     kanamuna = kanamuna- kanamun
+       println("OK")
+     }
+       else println("raaka-aineet ovat loppuneet se tarkoittaa, että et voi käyttää tätä reseptiä")
+     }
+
    }
-*/
+
+
+
+
+
+
 /*
   def calcuate (tomat: Int, taik: Int, juus : Int): Unit ={
     for (i <-  0 to 3){
