@@ -9,16 +9,19 @@ import scala.swing.event.ButtonClicked
 
 
 object main extends SimpleSwingApplication {
-
+/*
   val Pizza = new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)")
   val omlette = new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg")
   val Puuro = new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg")
   val fetapasta = new URL("https://www.maaseuduntulevaisuus.fi/image/policy:1.1321788:1613752789/image.jpg?f=default&q=0.9&$p$f$q=fda4bc7&w=806&$w=17a9782")
 
+ */
   val Reseptit = Map("pizza" -> new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)"),
     "omlette" -> new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg"),
     "puuro" -> new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg"),
-    "fetapasta" -> new URL("https://www.maaseuduntulevaisuus.fi/image/policy:1.1321788:1613752789/image.jpg?f=default&q=0.9&$p$f$q=fda4bc7&w=806&$w=17a9782"))
+    "fetapasta" -> new URL("https://kasvisreseptit.fi/wp-content/uploads/2019/03/uunifetapasta-kasvisreseptit-1.jpg"),
+    "tikkamasala" -> new URL("https://www.halfbakedharvest.com/wp-content/uploads/2019/10/Coconut-Chicken-Tikka-Masala-1.jpg")
+  )
   //val makingfood = Map("pizza"-> Receipt.pizzacalcuate(1,1,1))
 
 
@@ -27,10 +30,13 @@ object main extends SimpleSwingApplication {
 
   ) yield new BoxPanel(Orientation.Vertical) {
     val kuvaus = new Label(Receipt.kuvaukset(nimi))
+    //val kuvauss = new Label(Receipt.Vegankuvauset("Vegan"))
     val b = new ImageIcon(kuva)
-    val image = b.getImage.getScaledInstance(300, 300, SCALE_SMOOTH)
+    val image = b.getImage.getScaledInstance(250, 250, SCALE_SMOOTH)
     b.setImage(image)
     val nappi = new Button(nimi)
+    val vegannappi = new Button("Vegan")
+
     listenTo(nappi)
     reactions += {
       case painallus: ButtonClicked => {
@@ -38,8 +44,8 @@ object main extends SimpleSwingApplication {
         Receipt.kuvaukset(nimi)
         kuvaus.visible  = !kuvaus.visible
         nappulaikkuna.pack
-        //Receipt.makefood(nimi)
-    Receipt.calcuate(nimi,1,1,1,1)
+        Receipt.makefood(nimi)
+      // Receipt.calcuate(nimi,1,1,1,1)
 
       //Receipt.makefood(nimi)
         //Receipt.ca
