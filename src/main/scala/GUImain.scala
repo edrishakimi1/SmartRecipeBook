@@ -1,6 +1,7 @@
 //import main.edris
-import scala.collection.mutable.Buffer
+import GUImain.{listenTo, reactions}
 
+import scala.collection.mutable.Buffer
 import java.awt.Image.SCALE_SMOOTH
 import java.net.URL
 import javax.swing.ImageIcon
@@ -8,7 +9,7 @@ import scala.swing._
 import scala.swing.event.ButtonClicked
 
 
-object main extends SimpleSwingApplication {
+object GUImain extends SimpleSwingApplication {
 /*
   val Pizza = new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)")
   val omlette = new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg")
@@ -30,12 +31,11 @@ object main extends SimpleSwingApplication {
 
   ) yield new BoxPanel(Orientation.Vertical) {
     val kuvaus = new Label(Receipt.kuvaukset(nimi))
-    //val kuvauss = new Label(Receipt.Vegankuvauset("Vegan"))
     val b = new ImageIcon(kuva)
     val image = b.getImage.getScaledInstance(250, 250, SCALE_SMOOTH)
     b.setImage(image)
     val nappi = new Button(nimi)
-    val vegannappi = new Button("Vegan")
+
 
     listenTo(nappi)
     reactions += {
@@ -58,11 +58,31 @@ object main extends SimpleSwingApplication {
 
 
     }
+
+
+     val kuvauss = new Label(Receipt.Vegankuvauset("Vegan"))
+    val allergia = new Button("Ilman allergia")
+  listenTo(allergia)
+    reactions += {
+      case painallus: ButtonClicked => {
+        kuvauss.visible  = !kuvauss.visible
+      }
+    }
+
+
+
+
+
     contents += nappi
+    contents += allergia
     contents += kuvaus
    kuvaus.visible = false
+   //kuvauss.visible = false
   }
-  val oikeapuoli = new GridPanel(2, 2)
+
+
+
+  val oikeapuoli = new GridPanel(1, 1)
   oikeapuoli.contents ++= ruokapaneelit
   /*
 

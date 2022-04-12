@@ -2,7 +2,7 @@
 import scala.collection.mutable.Buffer
 object Receipt {
 
-
+/*
   var tonnikala =  3
   var tomaatti  =  3
   var maito     =  3
@@ -12,6 +12,8 @@ object Receipt {
   var juusto    =  5
   var pesto     =  5
   var olioljy   =  4
+
+ */
 
    val pizza =
     "<html>Liuota hiiva kädenlämpöiseen veteen. Lisää suola, jauhot ja öljy. ..\n" +
@@ -41,22 +43,21 @@ object Receipt {
    "<html>seoksesta jogurtin joukkoon. Kääntele broilerit jogurtissa " +
    "<html> ja anna maustua noin puoli tuntia huoneenlämmössä.<br/>"
 
+ val veganpizza = "edris"
 
 
-  // val Vegankuvauset = Map ("Vegan"-> Veganpizza)
-
-
-
-
-   val k = Buffer(pizza,Omlette, puuro, pasta)
+   val Vegankuvauset = Map ("Vegan"-> veganpizza)
    val kuvaukset   =     Map("pizza" -> pizza , "omlette" -> Omlette,  "puuro" -> puuro, "fetapasta" -> pasta,
      "tikkamasala"-> tikkamasala)
-   val ruokakaappi    =   collection.mutable.Map ("tonnikala"-> 3, "tomaatti" -> 2, "maito" -> 3,"jauho"->0,"kanamuna" -> 3 , "juusto" -> 5, "kana"-> 5)
-   val pizzaresepti =    Map ("juusto" -> 1 , "jauho"-> 2)
-  val omeletteresepti =  Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
-  val tikkamaslaresepti = Map("kana"-> 1)
-  val puuroo = Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
-  val pastaa = Map ("kanamuna" -> 2 , "tomaatti"-> 2 )
+   val ruokakaappi    =   collection.mutable.Map ("tonnikala" -> 360, "tomaatti" -> 2, "maito" -> 1000,"kanamuna" -> 500 ,
+     "juusto" -> 500, "kana"-> 1000,"pizzakastiketta" -> 1200, "punasipuli" -> 200, "pizzapohja" -> 300, "öljy"-> 1000
+   , "suola"-> 100, "mustapippuri" -> 10, "inkivääri"-> 90, "vettä" -> 10000, "kaurahiutaleita" -> 900, "pasta" -> 1000,
+     "Kirsikkatomaatteja" -> 800, "Basilikaa"-> 50, "feta"-> 200)
+   val pizzaresepti =    Map ("pizzakastiketta" -> 400, "juusto" -> 100 , "pizzapohja" -> 150, "tonnikala" -> 360)
+  val omeletteresepti =  Map ("kanamuna" -> 240 ,"suola"-> 10, "mustapippuri" -> 10, "öljy"-> 200 )
+  val tikkamaslaresepti = Map("kana"-> 400, "suola"-> 20,"punasipuli" -> 50, "inkivääri"-> 30, "öljy"-> 100 )
+  val puuroo = Map ("vettä" -> 500, "kaurahiutaleita" -> 400 , "maito"-> 500, "suola"-> 10 )
+  val pastaa = Map ("pasta" -> 200 , "feta"-> 200, "öljy"-> 100 , "Kirsikkatomaatteja" -> 400, "Basilikaa"-> 20, "suola"-> 10,  "mustapippuri" -> 10)
   val reseptit = Map("pizza"->pizzaresepti,"omlette" -> omeletteresepti, "puuro" -> puuroo,"fetapasta"-> pastaa
   , "tikkamasala"-> tikkamaslaresepti)
 
@@ -68,11 +69,11 @@ object Receipt {
       if (ruokakaappi(reseptinAine) >= reseptinMaara) {
         ruokakaappi(reseptinAine) = ruokakaappi(reseptinAine)- reseptinMaara
 
-      println("raaka-aine määrät ovat sopivan määrä")
+      println( reseptinAine + " " +" määrä on sopivan määrä")
     }
       else{
        val puuttuu =   reseptinMaara - ruokakaappi(reseptinAine)
-      println(puuttuu)
+      println("Loppunut" + " " + reseptinAine + "  " + "ja tarvitaan vähintään" + " " +  reseptinAine+ " " + puuttuu + "g")
 }
     }
   }
@@ -81,7 +82,7 @@ object Receipt {
 
 
 
-
+/*
 
 
    def calcuate ( ruoka: String, tomat: Int, taik: Int, juus : Int, kanamun: Int)={
@@ -106,6 +107,8 @@ object Receipt {
      }
 
    }
+
+ */
 
 
 
