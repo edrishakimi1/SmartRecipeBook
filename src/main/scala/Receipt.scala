@@ -62,20 +62,22 @@ object Receipt {
   , "tikkamasala"-> tikkamaslaresepti)
 
   def makefood (ruoka: String)={
-
+   var text = "<html>"
     for {
       (reseptinAine, reseptinMaara) <- reseptit(ruoka)
     } {
       if (ruokakaappi(reseptinAine) >= reseptinMaara) {
         ruokakaappi(reseptinAine) = ruokakaappi(reseptinAine)- reseptinMaara
 
-      println( reseptinAine + " " +" määrä on sopivan määrä")
+      text = text + reseptinAine + " " +" määrä on sopivan määrä<br/>"
     }
       else{
        val puuttuu =   reseptinMaara - ruokakaappi(reseptinAine)
-      println("Loppunut" + " " + reseptinAine + "  " + "ja tarvitaan vähintään" + " " +  reseptinAine+ " " + puuttuu + "g")
+      text = text + "Loppunut" + " " + reseptinAine + "  " + "ja tarvitaan vähintään" + " " +  reseptinAine+ " " + puuttuu + "g<br>"
 }
     }
+    text += "</html>"
+    text
   }
 
 

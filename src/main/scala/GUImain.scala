@@ -40,17 +40,22 @@ object GUImain extends SimpleSwingApplication {
     listenTo(nappi)
     reactions += {
       case painallus: ButtonClicked => {
-
+       if(painallus.source==nappi ) {
         Receipt.kuvaukset(nimi)
+
         kuvaus.visible  = !kuvaus.visible
+         text.visible = false
         nappulaikkuna.pack
         Receipt.makefood(nimi)
+       }
       // Receipt.calcuate(nimi,1,1,1,1)
 
       //Receipt.makefood(nimi)
         //Receipt.ca
 
       }
+      this.revalidate()
+    this.repaint()
 
     }
     contents += new Label() {
@@ -60,13 +65,24 @@ object GUImain extends SimpleSwingApplication {
     }
 
 
-     val kuvauss = new Label(Receipt.Vegankuvauset("Vegan"))
-    val allergia = new Button("Ilman allergia")
-  listenTo(allergia)
+     var text = new Label()
+    val Raw = new Button("raaka-aine määrän tarkistus")
+  listenTo(Raw)
     reactions += {
+
       case painallus: ButtonClicked => {
-        kuvauss.visible  = !kuvauss.visible
+        if(painallus.source==Raw ){
+          if(text.visible == false){
+        text.text = Receipt.makefood(nimi)
+          }
+          text.visible  = !text.visible
+          kuvaus.visible= false
+
+        }
       }
+     this.revalidate()
+    this.repaint()
+
     }
 
 
@@ -74,10 +90,13 @@ object GUImain extends SimpleSwingApplication {
 
 
     contents += nappi
-    contents += allergia
+    contents += Raw
+    contents += text
     contents += kuvaus
    kuvaus.visible = false
-   //kuvauss.visible = false
+   text.visible = false
+    this.revalidate()
+    this.repaint()
   }
 
 
