@@ -23,6 +23,9 @@ object GUImain extends SimpleSwingApplication {
     "fetapasta" -> new URL("https://kasvisreseptit.fi/wp-content/uploads/2019/03/uunifetapasta-kasvisreseptit-1.jpg"),
     "tikkamasala" -> new URL("https://www.halfbakedharvest.com/wp-content/uploads/2019/10/Coconut-Chicken-Tikka-Masala-1.jpg")
   )
+
+
+
   //val makingfood = Map("pizza"-> Receipt.pizzacalcuate(1,1,1))
 
 
@@ -45,6 +48,9 @@ object GUImain extends SimpleSwingApplication {
 
         kuvaus.visible  = !kuvaus.visible
          text.visible = false
+         textiVegan.visible = false
+         text1.visible = false
+         text3.visible = false
         nappulaikkuna.pack
         Receipt.makefood(nimi)
        }
@@ -68,15 +74,44 @@ object GUImain extends SimpleSwingApplication {
      var text = new Label()
     val Raw = new Button("raaka-aine määrän tarkistus")
   listenTo(Raw)
-    reactions += {
+    reactions +=
+      {
 
       case painallus: ButtonClicked => {
         if(painallus.source==Raw ){
           if(text.visible == false){
-        text.text = Receipt.makefood(nimi)
+        text.text = Receipt.maketext(nimi)
           }
           text.visible  = !text.visible
           kuvaus.visible= false
+          textiVegan.visible = false
+           text1.visible = false
+           text3.visible = false
+
+        }
+      }
+     this.revalidate()
+    this.repaint()
+
+    }
+
+
+     var text1 = new Label()
+    val Raw2 = new Button("Vegan raaka-aine määrän tarkistus")
+  listenTo(Raw2)
+    reactions +=
+      {
+
+      case painallus: ButtonClicked => {
+        if(painallus.source==Raw2 ){
+          if(text1.visible == false){
+        text1.text = Receipt.maketext("vegan"+nimi)
+          }
+          text1.visible  = !text1.visible
+          kuvaus.visible= false
+          textiVegan.visible = false
+          text.visible = false
+           text3.visible = false
 
         }
       }
@@ -89,12 +124,83 @@ object GUImain extends SimpleSwingApplication {
 
 
 
+
+    val textiVegan= new Label(Receipt.kuvaukset("vegan"+nimi))
+    val vegan = new Button (nimi + " " + "vegan")
+    listenTo(vegan)
+    reactions += {
+      case painallus: ButtonClicked => {
+       if(painallus.source==vegan ) {
+        Receipt.kuvaukset("vegan"+nimi)
+        textiVegan.visible  = !textiVegan.visible
+         text.visible = false
+         kuvaus.visible= false
+         text1.visible = false
+          text3.visible = false
+        nappulaikkuna.pack
+        Receipt.makefood("vegan"+nimi)
+       }
+      // Receipt.calcuate(nimi,1,1,1,1)
+
+      //Receipt.makefood(nimi)
+        //Receipt.ca
+
+      }
+      this.revalidate()
+    this.repaint()
+
+
+    }
+
+
+
+    var text3 = new Label()
+    val Raw3 = new Button("raaka-aine määrän lisäys")
+  listenTo(Raw3)
+    reactions +=
+      {
+
+      case painallus: ButtonClicked => {
+        if(painallus.source==Raw3 ){
+          if(text3.visible == false){
+        text3.text = Receipt.makefood(nimi)
+          }
+          Receipt.addfood(nimi)
+          text3.visible  = !text3.visible
+          kuvaus.visible= false
+          textiVegan.visible = false
+           text1.visible = false
+          text.visible = false
+
+        }
+      }
+     this.revalidate()
+    this.repaint()
+
+    }
+
+
+
+
+
+
+
+
     contents += nappi
+    contents+= vegan
     contents += Raw
+    contents += Raw2
+    contents += Raw3
+  contents += textiVegan
     contents += text
+    contents += text1
+    contents += text3
     contents += kuvaus
    kuvaus.visible = false
    text.visible = false
+   textiVegan.visible = false
+    text1.visible = false
+    text3.visible = false
     this.revalidate()
     this.repaint()
   }
