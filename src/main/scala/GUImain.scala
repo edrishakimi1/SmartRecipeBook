@@ -17,6 +17,7 @@ object GUImain extends SimpleSwingApplication {
   val fetapasta = new URL("https://www.maaseuduntulevaisuus.fi/image/policy:1.1321788:1613752789/image.jpg?f=default&q=0.9&$p$f$q=fda4bc7&w=806&$w=17a9782")
 
  */
+
   val Reseptit = Map("pizza" -> new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)"),
     "omlette" -> new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg"),
     "porridge" -> new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg"),
@@ -40,7 +41,10 @@ object GUImain extends SimpleSwingApplication {
     val nappi = new Button("Use" + " " + nimi + " "  + "receipe")
 
 
-    var kuvaus = new Label()
+    //var kuvaus = new Label()
+    var kuvaus = new TextPane
+    kuvaus.peer.setContentType("text/html")
+    kuvaus.editable = false
 
     listenTo(nappi)
     reactions += {
@@ -48,7 +52,7 @@ object GUImain extends SimpleSwingApplication {
        if(painallus.source==nappi ) {
 
           if(kuvaus.visible == false){
-        kuvaus.text = Receipt.kuvaukset(nimi)
+        kuvaus.text = Receipt.makefood(nimi)
           }
         //Receipt.kuvaukset(nimi)
 
@@ -59,10 +63,10 @@ object GUImain extends SimpleSwingApplication {
          text3.visible = false
          textAllergia.visible = false
          text4.visible=false
-          text5.visible=false
-           text6.visible= false
+         text5.visible=false
+         text6.visible= false
 
-        nappulaikkuna.pack
+
         Receipt.makefood(nimi)
        }
       // Receipt.calcuate(nimi,1,1,1,1)
@@ -75,6 +79,91 @@ object GUImain extends SimpleSwingApplication {
     this.repaint()
 
     }
+
+    var textAllergia = new TextPane
+    textAllergia.peer.setContentType("text/html")
+    textAllergia.editable = false
+    //val textAllergia= new Label(Receipt.kuvaukset("without allergies"+ " "+nimi))
+    val Allergia = new Button ("Use" + " " +nimi + " " + "without allergies" +  " "  + "recipe")
+    listenTo(Allergia)
+    reactions += {
+      case painallus: ButtonClicked => {
+       if(painallus.source==Allergia ) {
+         if(painallus.source==Allergia ) {
+
+          if(textiVegan.visible == false){
+        textAllergia.text = Receipt.makefood("without allergies"+ " "+nimi)
+          }
+        Receipt.kuvaukset("without allergies"+ " "+nimi)
+        textAllergia.visible  = !textAllergia.visible
+         text.visible = false
+         kuvaus.visible= false
+         text1.visible = false
+          text3.visible = false
+         textiVegan.visible = false
+         text4.visible=false
+          text5.visible=false
+           text6.visible= false
+
+        Receipt.makefood("without allergies"+ " "+nimi)
+       }
+
+      }
+      this.revalidate()
+    this.repaint()
+
+
+    }
+    }
+
+ var textiVegan= new TextPane
+  textiVegan.peer.setContentType("text/html")
+    textiVegan.editable = false
+    val vegan = new Button ("Use" + " " +nimi + " " + "vegan" +  " "  + "recipe")
+    listenTo(vegan)
+    reactions += {
+      case painallus: ButtonClicked => {
+       if(painallus.source==vegan ) {
+          if(textiVegan.visible == false){
+        textiVegan.text = Receipt.makefood("vegan"+nimi)
+          }
+
+
+        Receipt.kuvaukset("vegan"+nimi)
+        textiVegan.visible  = !textiVegan.visible
+         text.visible = false
+         kuvaus.visible= false
+         text1.visible = false
+          text3.visible = false
+         textAllergia.visible = false
+         text4.visible=false
+          text5.visible=false
+           text6.visible= false
+
+        Receipt.makefood("vegan"+nimi)
+       }
+      // Receipt.calcuate(nimi,1,1,1,1)
+
+      //Receipt.makefood(nimi)
+        //Receipt.ca
+
+      }
+      this.revalidate()
+    this.repaint()
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
     contents += new Label() {
       this.icon = b
 
@@ -102,7 +191,6 @@ object GUImain extends SimpleSwingApplication {
           text4.visible=false
            text5.visible=false
             text6.visible= false
-
         }
       }
      this.revalidate()
@@ -174,75 +262,16 @@ object GUImain extends SimpleSwingApplication {
 "käytä" + " " +nimi + " " + "vegan" +  " "  + "resepti"
 
 
-    val textiVegan= new Label(Receipt.kuvaukset("vegan"+nimi))
-    val vegan = new Button ("Use" + " " +nimi + " " + "vegan" +  " "  + "recipe")
-    listenTo(vegan)
-    reactions += {
-      case painallus: ButtonClicked => {
-       if(painallus.source==vegan ) {
-        Receipt.kuvaukset("vegan"+nimi)
-        textiVegan.visible  = !textiVegan.visible
-         text.visible = false
-         kuvaus.visible= false
-         text1.visible = false
-          text3.visible = false
-         textAllergia.visible = false
-         text4.visible=false
-          text5.visible=false
-           text6.visible= false
-        nappulaikkuna.pack
-        Receipt.makefood("vegan"+nimi)
-       }
-      // Receipt.calcuate(nimi,1,1,1,1)
-
-      //Receipt.makefood(nimi)
-        //Receipt.ca
-
-      }
-      this.revalidate()
-    this.repaint()
-
-
-    }
 
 
 
 
 
-     val textAllergia= new Label(Receipt.kuvaukset("without allergies"+ " "+nimi))
-    val Allergia = new Button ("Use" + " " +nimi + " " + "without allergies" +  " "  + "recipe")
-    listenTo(Allergia)
-    reactions += {
-      case painallus: ButtonClicked => {
-       if(painallus.source==Allergia ) {
-        Receipt.kuvaukset("without allergies"+ " "+nimi)
-        textAllergia.visible  = !textAllergia.visible
-         text.visible = false
-         kuvaus.visible= false
-         text1.visible = false
-          text3.visible = false
-         textiVegan.visible = false
-         text4.visible=false
-          text5.visible=false
-           text6.visible= false
-        nappulaikkuna.pack
-        Receipt.makefood("without allergies"+ " "+nimi)
-       }
-      // Receipt.calcuate(nimi,1,1,1,1)
 
-      //Receipt.makefood(nimi)
-        //Receipt.ca
-
-      }
-      this.revalidate()
-    this.repaint()
-
-
-    }
 
 
     var text3 = new Label()
-    val Raw3 = new Button("Raw material amount of added")
+    val Raw3 = new Button("Add raw material")
   listenTo(Raw3)
     reactions +=
       {
@@ -250,10 +279,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw3 ){
           if(text3.visible == false){
-        text3.text = Receipt.addfood(
+        text3.text = Receipt.addRawMaterials(
           nimi)
           }
-          Receipt.addfood(nimi)
+          Receipt.addRawMaterials(nimi)
           text3.visible  = !text3.visible
           kuvaus.visible= false
           textiVegan.visible = false
@@ -273,7 +302,7 @@ object GUImain extends SimpleSwingApplication {
 
 
  var text4 = new Label()
-    val Raw4 = new Button("Vegan raw material amount of added")
+    val Raw4 = new Button("Add vegan raw material ")
   listenTo(Raw4)
     reactions +=
       {
@@ -281,10 +310,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw4 ){
           if(text4.visible == false){
-        text4.text = Receipt.addfood(
+        text4.text = Receipt.addRawMaterials(
           "vegan"+nimi)
           }
-          Receipt.addfood("vegan"+nimi)
+          Receipt.addRawMaterials("vegan"+nimi)
           text4.visible  = !text4.visible
           kuvaus.visible= false
           textiVegan.visible = false
@@ -307,7 +336,7 @@ object GUImain extends SimpleSwingApplication {
 
 
     var text5 = new Label()
-    val Raw5 = new Button("Without allergies raw material amount of added")
+    val Raw5 = new Button("Add without allergies raw material")
   listenTo(Raw5)
     reactions +=
       {
@@ -315,10 +344,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw5 ){
           if(text5.visible == false){
-        text5.text = Receipt.addfood(
+        text5.text = Receipt.addRawMaterials(
           "without allergies"+ " "+nimi)
           }
-          Receipt.addfood("without allergies"+ " "+nimi)
+          Receipt.addRawMaterials("without allergies"+ " "+nimi)
           text5.visible  = !text5.visible
           kuvaus.visible= false
           textiVegan.visible = false
@@ -349,7 +378,8 @@ object GUImain extends SimpleSwingApplication {
     contents += Raw3
     contents += Raw4
     contents += Raw5
-  contents += textiVegan
+
+  //contents += textiVegan
     contents += text
     contents += text1
     contents += text6
@@ -357,7 +387,31 @@ object GUImain extends SimpleSwingApplication {
     contents += text4
     contents += text5
     contents += textAllergia
-    contents += kuvaus
+
+
+
+    kuvaus.minimumSize = new Dimension(400, 400)
+    kuvaus.preferredSize = new Dimension(400, 400)
+    val scroll = new ScrollPane(kuvaus)
+    scroll.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+    contents += scroll
+
+
+    textiVegan.minimumSize = new Dimension(400, 400)
+    textiVegan.preferredSize = new Dimension(400, 400)
+    val scroll3 = new ScrollPane(textiVegan)
+    scroll3.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+    contents += scroll3
+
+     textAllergia.minimumSize = new Dimension(400, 400)
+    textAllergia.preferredSize = new Dimension(400, 400)
+    val scroll9 = new ScrollPane(textAllergia)
+    scroll9.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+    contents += scroll9
+
+
+
+
    kuvaus.visible = false
    text.visible = false
    textiVegan.visible = false
@@ -452,6 +506,8 @@ object GUImain extends SimpleSwingApplication {
   val nappulaikkuna = new MainFrame
   nappulaikkuna.contents = oikeapuoli
   nappulaikkuna.title = "Smart Receipt"
+  nappulaikkuna.background = java.awt.Color.yellow
+
 
   // Sovelluksen pääikkunan palauttava metodi:
   def top = this.nappulaikkuna
