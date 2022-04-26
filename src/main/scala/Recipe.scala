@@ -133,9 +133,9 @@ object Recipe {
   val descriptions                         = Map("pizza" -> pizzaRecipe , "omlette" -> omletteRecipe,  "porridge" -> porridgeRecipe, "fetapasta" -> pastaRecipe,
                                                  "tikkamasala"-> tikkamasalaRecipe, "veganpizza"-> VeganPizzaRecipe, "vegantikkamasala" -> VeganTikkamaslaRecipe,
                                                  "veganfetapasta" -> veganPastaRecipe, "veganomlette"-> VeganOmletteRecipe,"veganporridge" -> VeganPorridgeRecipe,
-                                                 "without allergies omlette"-> withoutAllergiesOmletteRecipe, "without allergies pizza" -> withoutAllergiesPizzaRecipe,
-                                                 "without allergies fetapasta"-> withoutAllergiesPastaRecipe, "without allergies porridge" -> withoutAllergiesPorridgeRecipe,
-                                                 "without allergies tikkamasala" -> withoutAllergiesTikkamasalaRecipe)
+                                                 "no allergies omlette"-> withoutAllergiesOmletteRecipe, "no allergies pizza" -> withoutAllergiesPizzaRecipe,
+                                                 "no allergies fetapasta"-> withoutAllergiesPastaRecipe, "no allergies porridge" -> withoutAllergiesPorridgeRecipe,
+                                                 "no allergies tikkamasala" -> withoutAllergiesTikkamasalaRecipe)
 
    val pantry             = collection.mutable.Map("tuna" -> 360, "tomato" -> 2, "milk" -> 1000,"egg" -> 500 ,
                                                    "pizza cheese" -> 500, "chicken fillets"-> 2000,"tomato souce" -> 1200,
@@ -163,13 +163,13 @@ object Recipe {
    val withoutAllergiesPizzaRawMaterial      = Map ("tomato souce" -> 400, "lactose free pizza cheese"->100 , "pizza Base" -> 150, "chicken fillets" -> 360, "tomato souce" -> 100)
 
 
-   val recipesRawMaterials                   = Map("without allergies fetapasta" ->withoutAllergiesPastaRawMaterial,"tikkamasala"-> tikkamaslaRawMaterial,
+   val recipesRawMaterials                   = Map("no allergies fetapasta" ->withoutAllergiesPastaRawMaterial,"tikkamasala"-> tikkamaslaRawMaterial,
                                                    "veganpizza"-> veganPizzaRawMaterial,"veganfetapasta" -> veganPastaRawMaterial,
-                                                   "vegantikkamasala"->veganTikkamaslaRawMaterial,"without allergies porridge"-> withoutAllergiesPorridgeRawMaterial,
-                                                   "veganporridge"-> veganPorrdigeRawMaterial,"without allergies pizza"-> withoutAllergiesPizzaRawMaterial,
-                                                   "fetapasta"-> pastaRawMaterial,"without allergies omlette"-> withoutAllergiesOmletteRawMaterial,
+                                                   "vegantikkamasala"->veganTikkamaslaRawMaterial,"no allergies porridge"-> withoutAllergiesPorridgeRawMaterial,
+                                                   "veganporridge"-> veganPorrdigeRawMaterial,"no allergies pizza"-> withoutAllergiesPizzaRawMaterial,
+                                                   "fetapasta"-> pastaRawMaterial,"no allergies omlette"-> withoutAllergiesOmletteRawMaterial,
                                                    "veganomlette"-> veganOmletteRawMaterial,"porridge" -> porridgeRawMaterial,"pizza"->pizzaRawMaterial,
-                                                   "without allergies tikkamasala"-> withoutAllergiesTikkamaslaRawMaterial, "omlette" -> omeletteRawMaterial)
+                                                   "no allergies tikkamasala"-> withoutAllergiesTikkamaslaRawMaterial, "omlette" -> omeletteRawMaterial)
 
 
 

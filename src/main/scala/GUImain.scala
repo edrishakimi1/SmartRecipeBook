@@ -9,69 +9,64 @@ import scala.swing.event.ButtonClicked
 
 
 object GUImain extends SimpleSwingApplication {
-/*
-  val Pizza = new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)")
-  val omlette = new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg")
-  val Puuro = new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg")
-  val fetapasta = new URL("https://www.maaseuduntulevaisuus.fi/image/policy:1.1321788:1613752789/image.jpg?f=default&q=0.9&$p$f$q=fda4bc7&w=806&$w=17a9782")
 
- */
 
-  val Reseptit = Map("pizza" -> new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)"),
-    "omlette" -> new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg"),
-    "porridge" -> new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg"),
-    "fetapasta" -> new URL("https://kasvisreseptit.fi/wp-content/uploads/2019/03/uunifetapasta-kasvisreseptit-1.jpg"),
-    "tikkamasala" -> new URL("https://www.halfbakedharvest.com/wp-content/uploads/2019/10/Coconut-Chicken-Tikka-Masala-1.jpg")
-  )
+  val description    = Map( "pizza"        -> new URL("https://public.keskofiles.com/f/recipe/napolilainenpizza_21?w=2400&fit=crop)"),
+                            "omlette"      -> new URL("https://www.jessicagavin.com/wp-content/uploads/2020/09/how-to-make-an-omelette-american-12-1200.jpg"),
+                            "porridge"     -> new URL("https://www.foreverclub.fi/wp-content/uploads/2017/10/puuro-1.jpg"),
+                            "fetapasta"    -> new URL("https://kasvisreseptit.fi/wp-content/uploads/2019/03/uunifetapasta-kasvisreseptit-1.jpg"),
+                            "tikkamasala"  -> new URL("https://www.halfbakedharvest.com/wp-content/uploads/2019/10/Coconut-Chicken-Tikka-Masala-1.jpg"))
 
 
 
-  //val makingfood = Map("pizza"-> Receipt.pizzacalcuate(1,1,1))
 
 
-  val ruokapaneelit = for (
-    (nimi, kuva) <- Reseptit
+
+  val foodPanel = for (
+    (nimi, kuva) <- description
 
   ) yield new BoxPanel(Orientation.Vertical) {
-    //val kuvaus = new Label(Receipt.kuvaukset(nimi))
-    val b = new ImageIcon(kuva)
-    val image = b.getImage.getScaledInstance(250, 250, SCALE_SMOOTH)
-    b.setImage(image)
-    val nappi = new Button("Use" + " " + nimi + " "  + "receipe")
+
+    val buildPhoto      = new ImageIcon(kuva)
+    val image           = buildPhoto.getImage.getScaledInstance(250, 250, SCALE_SMOOTH)
+    val normalButton    = new Button("Use" + " " + nimi + " "  + "receipe")
+
+        buildPhoto.setImage(image)
+
+     contents += new Label() {
+      this.icon = buildPhoto
 
 
-    //var kuvaus = new Label()
-    var kuvaus = new TextPane
-    kuvaus.peer.setContentType("text/html")
-    kuvaus.editable = false
+    }
 
-    listenTo(nappi)
+    var buildPane = new TextPane
+        buildPane.peer.setContentType("text/html")
+        buildPane.editable = false
+
+    listenTo(normalButton)
     reactions += {
       case painallus: ButtonClicked => {
-       if(painallus.source==nappi ) {
+       if(painallus.source==normalButton ) {
 
-          if(kuvaus.visible == false){
-        kuvaus.text = Recipe.makefood(nimi)
+          if(buildPane.visible == false){
+             buildPane.text = Recipe.makefood(nimi)
           }
-        //Receipt.kuvaukset(nimi)
 
-        kuvaus.visible  = !kuvaus.visible
-         text.visible = false
-         textiVegan.visible = false
-         text1.visible = false
-         text3.visible = false
-         textAllergia.visible = false
-         text4.visible=false
-         text5.visible=false
-         text6.visible= false
+
+            buildPane.visible             = !buildPane.visible
+            RawMaterialLabel.visible      = false
+            buidlVeganPane.visible        = false
+            VeganRawMaterialLabel.visible = false
+            addMaterial.visible           = false
+            buidlAllergiaPane.visible     = false
+            addVeganMaterial.visible      = false
+            addWA.visible                 = false
+            WARawMaterialLabel.visible    = false
 
 
         Recipe.makefood(nimi)
        }
-      // Receipt.calcuate(nimi,1,1,1,1)
 
-      //Receipt.makefood(nimi)
-        //Receipt.ca
 
       }
       this.revalidate()
@@ -79,72 +74,68 @@ object GUImain extends SimpleSwingApplication {
 
     }
 
-    var textAllergia = new TextPane
-    textAllergia.peer.setContentType("text/html")
-    textAllergia.editable = false
-    //val textAllergia= new Label(Receipt.kuvaukset("without allergies"+ " "+nimi))
-    val Allergia = new Button ("Use" + " " +nimi + " " + "without allergies" +  " "  + "recipe")
-    listenTo(Allergia)
+    var buidlAllergiaPane = new TextPane
+    buidlAllergiaPane.peer.setContentType("text/html")
+    buidlAllergiaPane.editable = false
+    val allergicButton = new Button ("Use" + " " +nimi + " " + "no allergies" +  " "  + "recipe")
+    listenTo(allergicButton)
     reactions += {
       case painallus: ButtonClicked => {
-       if(painallus.source==Allergia ) {
-         if(painallus.source==Allergia ) {
-
-          if(textiVegan.visible == false){
-        textAllergia.text = Recipe.makefood("without allergies"+ " "+nimi)
+       if(painallus.source==allergicButton ) {
+         if(painallus.source==allergicButton ) {
+          if(buidlVeganPane.visible == false){
+        buidlAllergiaPane.text = Recipe.makefood("no allergies"+ " "+nimi)
           }
-        Recipe.descriptions("without allergies"+ " "+nimi)
-        textAllergia.visible  = !textAllergia.visible
-         text.visible = false
-         kuvaus.visible= false
-         text1.visible = false
-          text3.visible = false
-         textiVegan.visible = false
-         text4.visible=false
-          text5.visible=false
-           text6.visible= false
+        Recipe.descriptions("no allergies"+ " "+nimi)
+        buidlAllergiaPane.visible      = !buidlAllergiaPane.visible
+         RawMaterialLabel.visible      = false
+         buildPane.visible             = false
+         VeganRawMaterialLabel.visible = false
+         addMaterial.visible           = false
+         buidlVeganPane.visible        = false
+         addVeganMaterial.visible      = false
+         addWA.visible                 = false
+         WARawMaterialLabel.visible    = false
 
-        Recipe.makefood("without allergies"+ " "+nimi)
+        Recipe.makefood("no allergies"+ " "+nimi)
        }
 
       }
-      this.revalidate()
+
+    this.revalidate()
     this.repaint()
 
 
     }
     }
 
- var textiVegan= new TextPane
-  textiVegan.peer.setContentType("text/html")
-    textiVegan.editable = false
-    val vegan = new Button ("Use" + " " +nimi + " " + "vegan" +  " "  + "recipe")
-    listenTo(vegan)
+    var buidlVeganPane= new TextPane
+        buidlVeganPane.peer.setContentType("text/html")
+        buidlVeganPane.editable = false
+    val veganButton = new Button ("Use" + " " +nimi + " " + "vegan" +  " "  + "recipe")
+    listenTo(veganButton)
     reactions += {
       case painallus: ButtonClicked => {
-       if(painallus.source==vegan ) {
-          if(textiVegan.visible == false){
-        textiVegan.text = Recipe.makefood("vegan"+nimi)
+       if(painallus.source==veganButton ) {
+          if(buidlVeganPane.visible == false){
+        buidlVeganPane.text = Recipe.makefood("vegan"+nimi)
           }
 
 
-        Recipe.descriptions("vegan"+nimi)
-        textiVegan.visible  = !textiVegan.visible
-         text.visible = false
-         kuvaus.visible= false
-         text1.visible = false
-          text3.visible = false
-         textAllergia.visible = false
-         text4.visible=false
-          text5.visible=false
-           text6.visible= false
+         Recipe.descriptions("vegan"+nimi)
+         buidlVeganPane.visible        = !buidlVeganPane.visible
+         RawMaterialLabel.visible      = false
+         buildPane.visible             = false
+         VeganRawMaterialLabel.visible = false
+         addMaterial.visible           = false
+         buidlAllergiaPane.visible     = false
+         addVeganMaterial.visible      = false
+         addWA.visible                 = false
+         WARawMaterialLabel.visible    = false
 
         Recipe.makefood("vegan"+nimi)
        }
-      // Receipt.calcuate(nimi,1,1,1,1)
 
-      //Receipt.makefood(nimi)
-        //Receipt.ca
 
       }
       this.revalidate()
@@ -156,40 +147,26 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-
-
-
-
-
-
-
-    contents += new Label() {
-      this.icon = b
-
-
-    }
-
-
-     var text = new Label()
-    val Raw = new Button("Raw material amount")
-  listenTo(Raw)
-    reactions +=
+    var RawMaterialLabel = new Label()
+    val ButtonAmount = new Button("Raw material amount")
+       listenTo(ButtonAmount)
+         reactions +=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw ){
-          if(text.visible == false){
-        text.text = Recipe.amounTotext(nimi)
+        if(painallus.source==ButtonAmount ){
+          if(RawMaterialLabel.visible == false){
+           RawMaterialLabel.text         = Recipe.amounTotext(nimi)
           }
-          text.visible  = !text.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-           text1.visible = false
-           text3.visible = false
-          textAllergia.visible = false
-          text4.visible=false
-           text5.visible=false
-            text6.visible= false
+           RawMaterialLabel.visible      = !RawMaterialLabel.visible
+           buildPane.visible             = false
+           buidlVeganPane.visible        = false
+           VeganRawMaterialLabel.visible = false
+           addMaterial.visible           = false
+           buidlAllergiaPane.visible     = false
+           addVeganMaterial.visible      = false
+           addWA.visible                 = false
+           WARawMaterialLabel.visible    = false
         }
       }
      this.revalidate()
@@ -198,26 +175,26 @@ object GUImain extends SimpleSwingApplication {
     }
 
 
-     var text1 = new Label()
-    val Raw2 = new Button("Vegan raw material amount")
-  listenTo(Raw2)
+    var VeganRawMaterialLabel = new Label()
+    val VeganButtonAmount = new Button("Vegan raw material amount")
+  listenTo(VeganButtonAmount)
     reactions +=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw2 ){
-          if(text1.visible == false){
-        text1.text = Recipe.amounTotext("vegan"+nimi)
+        if(painallus.source==VeganButtonAmount ){
+          if(VeganRawMaterialLabel.visible == false){
+             VeganRawMaterialLabel.text     = Recipe.amounTotext("vegan"+nimi)
           }
-          text1.visible  = !text1.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-          text.visible = false
-           text3.visible = false
-          textAllergia.visible = false
-          text4.visible=false
-           text5.visible=false
-            text6.visible= false
+             VeganRawMaterialLabel.visible  = !VeganRawMaterialLabel.visible
+             buildPane.visible              = false
+             buidlVeganPane.visible         = false
+             RawMaterialLabel.visible       = false
+             addMaterial.visible            = false
+             buidlAllergiaPane.visible      = false
+             addVeganMaterial.visible       = false
+             addWA.visible                  = false
+             WARawMaterialLabel.visible     = false
 
         }
       }
@@ -228,26 +205,26 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-     var text6 = new Label()
-    val Raw6 = new Button("Without allergies raw material amount ")
-  listenTo(Raw6)
+    var WARawMaterialLabel   = new Label()                         // Wihtout Allergies = shortline WA
+    val WAButtonAmount       = new Button("No allergies raw material amount ")
+  listenTo(WAButtonAmount)
     reactions +=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw6 ){
-          if(text6.visible == false){
-        text6.text = Recipe.amounTotext("without allergies"+ " "+nimi)
+        if(painallus.source==WAButtonAmount ){
+          if(WARawMaterialLabel.visible == false){
+        WARawMaterialLabel.text          = Recipe.amounTotext("no allergies"+ " "+nimi)
           }
-          text6.visible  = !text6.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-          text.visible = false
-           text3.visible = false
-          textAllergia.visible = false
-          text4.visible=false
-           text5.visible=false
-          text1.visible= false
+          WARawMaterialLabel.visible     = !WARawMaterialLabel.visible
+          buildPane.visible              = false
+          buidlVeganPane.visible         = false
+          RawMaterialLabel.visible       = false
+          addMaterial.visible            = false
+          buidlAllergiaPane.visible      = false
+          addVeganMaterial.visible       = false
+          addWA.visible                  = false
+          VeganRawMaterialLabel.visible  = false
 
         }
       }
@@ -258,39 +235,29 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-"käytä" + " " +nimi + " " + "vegan" +  " "  + "resepti"
 
-
-
-
-
-
-
-
-
-
-    var text3 = new Label()
-    val Raw3 = new Button("Add raw material")
-  listenTo(Raw3)
-    reactions +=
+    var addMaterial = new Label()
+    val addButton   = new Button("Add raw material")
+        listenTo(addButton)
+    reactions+=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw3 ){
-          if(text3.visible == false){
-        text3.text = Recipe.addRawMaterials(
+        if(painallus.source==addButton ){
+          if(addMaterial.visible == false){
+        addMaterial.text = Recipe.addRawMaterials(
           nimi)
           }
           Recipe.addRawMaterials(nimi)
-          text3.visible  = !text3.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-           text1.visible = false
-          text.visible = false
-          textAllergia.visible = false
-         text4.visible=false
-           text5.visible=false
-            text6.visible= false
+          addMaterial.visible           = !addMaterial.visible
+          buildPane.visible             = false
+          buidlVeganPane.visible        = false
+          VeganRawMaterialLabel.visible = false
+          RawMaterialLabel.visible      = false
+          buidlAllergiaPane.visible     = false
+          addVeganMaterial.visible      = false
+          addWA.visible                 = false
+          WARawMaterialLabel.visible    = false
         }
       }
      this.revalidate()
@@ -300,28 +267,28 @@ object GUImain extends SimpleSwingApplication {
 
 
 
- var text4 = new Label()
-    val Raw4 = new Button("Add vegan raw material ")
-  listenTo(Raw4)
+ var addVeganMaterial = new Label()
+    val addVeganButton = new Button("Add vegan raw material ")
+  listenTo(addVeganButton)
     reactions +=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw4 ){
-          if(text4.visible == false){
-        text4.text = Recipe.addRawMaterials(
+        if(painallus.source==addVeganButton ){
+          if(addVeganMaterial.visible == false){
+        addVeganMaterial.text           = Recipe.addRawMaterials(
           "vegan"+nimi)
           }
           Recipe.addRawMaterials("vegan"+nimi)
-          text4.visible  = !text4.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-           text1.visible = false
-          text.visible = false
-          textAllergia.visible = false
-          text3.visible=false
-          text5.visible=false
-            text6.visible= false
+          addVeganMaterial.visible      = !addVeganMaterial.visible
+          buildPane.visible             = false
+          buidlVeganPane.visible        = false
+          VeganRawMaterialLabel.visible = false
+          RawMaterialLabel.visible      = false
+          buidlAllergiaPane.visible     = false
+          addMaterial.visible           = false
+          addWA.visible                 = false
+          WARawMaterialLabel.visible    = false
 
         }
       }
@@ -334,28 +301,28 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-    var text5 = new Label()
-    val Raw5 = new Button("Add without allergies raw material")
-  listenTo(Raw5)
+    var addWA       = new Label()                                                 // Wihtout Allergies = shortline WA
+    val addWAButton = new Button("Add no allergies raw material")
+        listenTo(addWAButton)
     reactions +=
       {
 
       case painallus: ButtonClicked => {
-        if(painallus.source==Raw5 ){
-          if(text5.visible == false){
-        text5.text = Recipe.addRawMaterials(
-          "without allergies"+ " "+nimi)
+        if(painallus.source==addWAButton ){
+          if(addWA.visible == false){
+        addWA.text       = Recipe.addRawMaterials(
+          "no allergies"+ " "+nimi)
           }
-          Recipe.addRawMaterials("without allergies"+ " "+nimi)
-          text5.visible  = !text5.visible
-          kuvaus.visible= false
-          textiVegan.visible = false
-           text1.visible = false
-          text.visible = false
-          textAllergia.visible = false
-          text3.visible=false
-          text4.visible=false
-            text6.visible= false
+          Recipe.addRawMaterials("no allergies"+ " "+nimi)
+          addWA.visible                  = !addWA.visible
+          buildPane.visible              = false
+          buidlVeganPane.visible         = false
+          VeganRawMaterialLabel.visible  = false
+          RawMaterialLabel.visible       = false
+          buidlAllergiaPane.visible      = false
+          addMaterial.visible            = false
+          addVeganMaterial.visible       = false
+          WARawMaterialLabel.visible     = false
 
 
         }
@@ -368,58 +335,58 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-    contents += nappi
-    contents+= vegan
-    contents += Allergia
-    contents += Raw
-    contents += Raw2
-    contents += Raw6
-    contents += Raw3
-    contents += Raw4
-    contents += Raw5
-
-  //contents += textiVegan
-    contents += text
-    contents += text1
-    contents += text6
-    contents += text3
-    contents += text4
-    contents += text5
-    contents += textAllergia
+    contents += normalButton
+    contents += veganButton
+    contents += allergicButton
+    contents += ButtonAmount
+    contents += VeganButtonAmount
+    contents += WAButtonAmount
+    contents += addButton
+    contents += addVeganButton
+    contents += addWAButton
 
 
+    contents += RawMaterialLabel
+    contents += VeganRawMaterialLabel
+    contents += WARawMaterialLabel
+    contents += addMaterial
+    contents += addVeganMaterial
+    contents += addWA
+    contents += buidlAllergiaPane
 
-    kuvaus.minimumSize = new Dimension(400, 400)
-    kuvaus.preferredSize = new Dimension(400, 400)
-    val scroll = new ScrollPane(kuvaus)
-    scroll.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+
+
+    buildPane.minimumSize             = new Dimension(400, 400)
+    buildPane.preferredSize           = new Dimension(400, 400)
+    val scroll                        = new ScrollPane(buildPane)
+    scroll.horizontalScrollBarPolicy  = ScrollPane.BarPolicy.Never
     contents += scroll
 
 
-    textiVegan.minimumSize = new Dimension(400, 400)
-    textiVegan.preferredSize = new Dimension(400, 400)
-    val scroll3 = new ScrollPane(textiVegan)
+    buidlVeganPane.minimumSize        = new Dimension(400, 400)
+    buidlVeganPane.preferredSize      = new Dimension(400, 400)
+    val scroll3                       = new ScrollPane(buidlVeganPane)
     scroll3.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
-    contents += scroll3
+                            contents += scroll3
 
-     textAllergia.minimumSize = new Dimension(400, 400)
-    textAllergia.preferredSize = new Dimension(400, 400)
-    val scroll9 = new ScrollPane(textAllergia)
+     buidlAllergiaPane.minimumSize    = new Dimension(400, 400)
+    buidlAllergiaPane.preferredSize   = new Dimension(400, 400)
+    val scroll9                       = new ScrollPane(buidlAllergiaPane)
     scroll9.horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
-    contents += scroll9
+    contents                         += scroll9
 
 
 
 
-   kuvaus.visible = false
-   text.visible = false
-   textiVegan.visible = false
-    text1.visible = false
-    text3.visible = false
-    textAllergia.visible = false
-     text4.visible=false
-     text5.visible=false
-    text6.visible= false
+   buildPane.visible                  = false
+   RawMaterialLabel.visible           = false
+   buidlVeganPane.visible             = false
+    VeganRawMaterialLabel.visible     = false
+    addMaterial.visible               = false
+    buidlAllergiaPane.visible         = false
+     addVeganMaterial.visible         = false
+     addWA.visible                    = false
+    WARawMaterialLabel.visible        = false
 
     this.revalidate()
     this.repaint()
@@ -427,224 +394,19 @@ object GUImain extends SimpleSwingApplication {
 
 
 
-  val oikeapuoli = new GridPanel(1, 1)
-  oikeapuoli.contents ++= ruokapaneelit
-  /*
+  val rightSide                       = new GridPanel(1, 1)
+      rightSide.contents            ++= foodPanel
 
-
-     val ekaNappi = new Button("Pizza"){
-     // this.name ="1"
-    }
-    val PizzaVegannappi = new Button("Vegan Pizza"){
-      this.name="2"
-    }
-
-
-    val tokaNappi = new Button("Omelette!")
-    val kolmasnappi = new Button("Puuro")
-     //{this.name = "2"}
-    val pastanappi = new Button("Fetapasta")
-
-    val receipt = new Receipt
-    val ruoka = receipt.pizza
-    val oml = receipt.Omlette
-    val puuro = receipt.puuro
-    val pasta= receipt.pasta
-
-    val kuvat = Buffer(Pizza, omlette,Puuro,fetapasta)
-    val napit = Buffer(ekaNappi,tokaNappi, kolmasnappi,pastanappi)
-    val tekstit = Buffer(ruoka,oml,puuro,pasta)
-
-
-    var vasenpuoli = new BoxPanel(Orientation.Vertical)
-    var oikeaouoli = new BoxPanel(Orientation.Horizontal)
-
-    for ( k <- 0 to 3){
-      if(k % 2==0){
-      vasenpuoli = new BoxPanel(Orientation.Vertical)
-      oikeaouoli.contents  += vasenpuoli
-      vasenpuoli.border = new EmptyBorder(8,8,8,8)
-      }
-      val numLabel2 = new Label {
-      val b = new ImageIcon(kuvat(k))
-      val imagess = b.getImage.getScaledInstance(300, 300, SCALE_SMOOTH)
-      this.icon = new ImageIcon(imagess)
-    }
-      val label = new Label{
-        text= tekstit(k)
-         visible = false
-
-      }
-
-      val pizzanappi = napit(k)
-      val vegan = PizzaVegannappi
-      vasenpuoli.contents += numLabel2
-      vasenpuoli.contents += label
-      vasenpuoli.contents += vegan
-      vasenpuoli.contents += pizzanappi
-      listenTo(napit(k))
-      reactions += {
-        case painallus: ButtonClicked =>{
-          if(painallus.source == pizzanappi) {
-          label.visible = true
-            receipt.pizzacalcuate(1,1,1)
-         // receipt.calcuate(k)
-
-          }
+ val main                             = new MainFrame
+     main.contents                    = rightSide
+     main.title                       = "Smart Receipt"
+  //nappulaikkuna.background = java.awt.Color.yellow
 
 
 
-        }
-
-
-
-    }
-
-    }
-  */
-  val nappulaikkuna = new MainFrame
-  nappulaikkuna.contents = oikeapuoli
-  nappulaikkuna.title = "Smart Receipt"
-  nappulaikkuna.background = java.awt.Color.yellow
-
-
-  // Sovelluksen pääikkunan palauttava metodi:
-  def top = this.nappulaikkuna
+  def top = this.main
 }
 
 
-
-
-
-/*
-
- val mLabel = new Label {
-  val v = new ImageIcon(Puuro)
-  val ik = v.getImage.getScaledInstance(50, 50, SCALE_SMOOTH)
-  this.icon = new ImageIcon(ik)
-}
-val hh = new BoxPanel(Orientation.Vertical)
-
-
-for(i <- 0 to 5) {
-
-val numLabel2 = new Label {
-  val b = new ImageIcon(omlette)
-  val imagess = b.getImage.getScaledInstance(300, 300, SCALE_SMOOTH)
-  this.icon = new ImageIcon(imagess)
-}
-hh.contents+= numLabel2
- hh.contents += ekaNappi
-hh.contents += label
-
-
-val label1 = new Label {
-this.name = "1"
-  text = oml
-  visible = false
-}
-hh.contents += label1
-val puurolabel = new Label {
-this.name = "2"
-  text = puuro
-  visible = false
-}
-
-
-}
-
-val receipt = new Receipt
-val ruoka = receipt.pizza
-val oml = receipt.Omlette
-val puuro = receipt.puuro
-val label = new Label {
-  text = ruoka
-  visible = false
-}
-
-
-
-val ekaNappi = new Button("Pizza"){
-  this.name ="1"
-}
-val tokaNappi = new Button("Omelette!")
-val kolmasnappi = new Button("Puuro")
-{this.name = "2"}
-val kehote = new Label("Mitä haluat syödä?")
-
-
-val uusi = new GridPanel(3,3)
-
-val d = new BoxPanel(Orientation.Vertical)
-d.contents += numLabel
-// d.contents += uusi
-d.contents += ekaNappi
-d.contents += label
-
-val dpuuro = new BoxPanel(Orientation.Vertical)
-dpuuro.contents += mLabel
-dpuuro.contents += uusi
-dpuuro.contents += kolmasnappi
-dpuuro.contents += puurolabel
-dpuuro.contents += mLabel
-
-
-val u = new BoxPanel(Orientation.Vertical)
-u.contents += numLabel2
-u.contents += tokaNappi
-u.contents += label1
-//k.contents += u
-listenTo(tokaNappi)
- listenTo(ekaNappi,tokaNappi,kolmasnappi)
-
-  reactions += {
-    case painallus: ButtonClicked =>{
-      if(painallus.source.name=="1")
-      label.visible = true
-      else if(painallus.source.name=="2")
-        puurolabel.visible = true
-      else
-       label1.visible = true
-    }
-      val k = new BoxPanel(Orientation.Vertical)
-k.contents += numLabel2
-k.contents += tokaNappi
-k.contents += label1
-//k.contents += u
-listenTo(tokaNappi)
- listenTo(ekaNappi,tokaNappi,kolmasnappi)
-
-  reactions += {
-    case painallus: ButtonClicked =>{
-      if(painallus.source.name=="1")
-      label.visible = true
-      else if(painallus.source.name=="2")
-        puurolabel.visible = true
-      else
-       label1.visible = true
-    }
-   val newbox = new BoxPanel(Orientation.Horizontal)
-
-
-
-
-     }
-
-// Komponenttien asemointi ikkunaan:
-val kaikkiJutut = new BoxPanel(Orientation.Vertical)
-kaikkiJutut.contents += d
-//(oli Grindplnel)
-kaikkiJutut.contents += u
-kaikkiJutut.contents += uusi
-kaikkiJutut.contents += dpuuro
-
-val nappulaikkuna = new MainFrame
-nappulaikkuna.contents = kaikkiJutut
-nappulaikkuna.title = "Smart Receipt"
-
-// Sovelluksen pääikkunan palauttava metodi:
-def top = this.nappulaikkuna
-
- */
 
 
