@@ -1,4 +1,3 @@
-//import main.edris
 import GUImain.{listenTo, reactions}
 
 import scala.collection.mutable.Buffer
@@ -52,7 +51,7 @@ object GUImain extends SimpleSwingApplication {
        if(painallus.source==nappi ) {
 
           if(kuvaus.visible == false){
-        kuvaus.text = Receipt.makefood(nimi)
+        kuvaus.text = Recipe.makefood(nimi)
           }
         //Receipt.kuvaukset(nimi)
 
@@ -67,7 +66,7 @@ object GUImain extends SimpleSwingApplication {
          text6.visible= false
 
 
-        Receipt.makefood(nimi)
+        Recipe.makefood(nimi)
        }
       // Receipt.calcuate(nimi,1,1,1,1)
 
@@ -92,9 +91,9 @@ object GUImain extends SimpleSwingApplication {
          if(painallus.source==Allergia ) {
 
           if(textiVegan.visible == false){
-        textAllergia.text = Receipt.makefood("without allergies"+ " "+nimi)
+        textAllergia.text = Recipe.makefood("without allergies"+ " "+nimi)
           }
-        Receipt.kuvaukset("without allergies"+ " "+nimi)
+        Recipe.descriptions("without allergies"+ " "+nimi)
         textAllergia.visible  = !textAllergia.visible
          text.visible = false
          kuvaus.visible= false
@@ -105,7 +104,7 @@ object GUImain extends SimpleSwingApplication {
           text5.visible=false
            text6.visible= false
 
-        Receipt.makefood("without allergies"+ " "+nimi)
+        Recipe.makefood("without allergies"+ " "+nimi)
        }
 
       }
@@ -125,11 +124,11 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
        if(painallus.source==vegan ) {
           if(textiVegan.visible == false){
-        textiVegan.text = Receipt.makefood("vegan"+nimi)
+        textiVegan.text = Recipe.makefood("vegan"+nimi)
           }
 
 
-        Receipt.kuvaukset("vegan"+nimi)
+        Recipe.descriptions("vegan"+nimi)
         textiVegan.visible  = !textiVegan.visible
          text.visible = false
          kuvaus.visible= false
@@ -140,7 +139,7 @@ object GUImain extends SimpleSwingApplication {
           text5.visible=false
            text6.visible= false
 
-        Receipt.makefood("vegan"+nimi)
+        Recipe.makefood("vegan"+nimi)
        }
       // Receipt.calcuate(nimi,1,1,1,1)
 
@@ -180,7 +179,7 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw ){
           if(text.visible == false){
-        text.text = Receipt.maketext(nimi)
+        text.text = Recipe.amounTotext(nimi)
           }
           text.visible  = !text.visible
           kuvaus.visible= false
@@ -208,7 +207,7 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw2 ){
           if(text1.visible == false){
-        text1.text = Receipt.maketext("vegan"+nimi)
+        text1.text = Recipe.amounTotext("vegan"+nimi)
           }
           text1.visible  = !text1.visible
           kuvaus.visible= false
@@ -238,7 +237,7 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw6 ){
           if(text6.visible == false){
-        text6.text = Receipt.maketext("without allergies"+ " "+nimi)
+        text6.text = Recipe.amounTotext("without allergies"+ " "+nimi)
           }
           text6.visible  = !text6.visible
           kuvaus.visible= false
@@ -279,10 +278,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw3 ){
           if(text3.visible == false){
-        text3.text = Receipt.addRawMaterials(
+        text3.text = Recipe.addRawMaterials(
           nimi)
           }
-          Receipt.addRawMaterials(nimi)
+          Recipe.addRawMaterials(nimi)
           text3.visible  = !text3.visible
           kuvaus.visible= false
           textiVegan.visible = false
@@ -310,10 +309,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw4 ){
           if(text4.visible == false){
-        text4.text = Receipt.addRawMaterials(
+        text4.text = Recipe.addRawMaterials(
           "vegan"+nimi)
           }
-          Receipt.addRawMaterials("vegan"+nimi)
+          Recipe.addRawMaterials("vegan"+nimi)
           text4.visible  = !text4.visible
           kuvaus.visible= false
           textiVegan.visible = false
@@ -344,10 +343,10 @@ object GUImain extends SimpleSwingApplication {
       case painallus: ButtonClicked => {
         if(painallus.source==Raw5 ){
           if(text5.visible == false){
-        text5.text = Receipt.addRawMaterials(
+        text5.text = Recipe.addRawMaterials(
           "without allergies"+ " "+nimi)
           }
-          Receipt.addRawMaterials("without allergies"+ " "+nimi)
+          Recipe.addRawMaterials("without allergies"+ " "+nimi)
           text5.visible  = !text5.visible
           kuvaus.visible= false
           textiVegan.visible = false
